@@ -48,7 +48,7 @@ const CreatePodcast = () => {
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null,
   );
-  const [imageUrl, setImageUrl] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
 
   const [audioUrl, setAudioUrl] = useState("");
   const [audioStorageId, setAudioStorageId] = useState<Id<"_storage"> | null>(
@@ -56,15 +56,15 @@ const CreatePodcast = () => {
   );
   const [audioDuration, setAudioDuration] = useState(0);
 
-  const [voiceType, setVoiceType] = useState<string | null>(null);
+  const [voiceType, setVoiceType] = useState<string>(voiceCategories[0]);
   const [voicePrompt, setVoicePrompt] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const createPodcast = useMutation(api.podcasts.createPodcast);
+  const createPodcast = useMutation(api.podcasts.createPodcast);
 
   const { toast } = useToast();
-
+  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,44 +76,47 @@ const CreatePodcast = () => {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       setIsSubmitting(true);
-      if (!audioUrl || !imageUrl || !voiceType) {
+      if (!audioUrl || !imgUrl || !voiceType) {
         toast({
-          title: "Veuillez générer l'audio et l'image",
+          title:
+            "Veuillez remplir tous les champs nécessaires avant de publier votre podcast.",
+          variant: "destructive",
         });
         setIsSubmitting(false);
-        throw new Error("Veuillez générer l'audio et l'image");
+        throw new Error(
+          "Veuillez remplir tous les champs nécessaires avant de publier votre podcast.",
+        );
       }
 
-      /* const podcast = await createPodcast({
+      const podcast = await createPodcast({
         podcastTitle: data.podcastTitle,
         podcastDescription: data.podcastDescription,
         audioUrl,
-        imageUrl,
+        imgUrl,
         voiceType,
         imagePrompt,
         voicePrompt,
         views: 0,
         audioDuration,
         audioStorageId: audioStorageId!,
-        imageStorageId: imageStorageId!,
+        imgStorageId: imageStorageId!,
       });
-      toast({ title: "Podcast créé" });
+      toast({ title: "Podcast crée avec succès" });
       setIsSubmitting(false);
       router.push("/");
-      */
     } catch (error) {
-      console.log(error);
       toast({
-        title: "Erreur",
+        title: "Erreur lors de l'upload du podcast",
         variant: "destructive",
       });
       setIsSubmitting(false);
+      throw new Error("Veuillez générer un audio et uploader une image");
     }
   }
 
   return (
     <section className="mt-10 flex flex-col">
-      <h1 className="text-20 font-bold text-white-1">Créer un Podcast</h1>
+      <h1 className="text-20 font-bold text-white-1">Create Podcast</h1>
 
       <Form {...form}>
         <form
@@ -127,12 +130,12 @@ const CreatePodcast = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-16 font-bold text-white-1">
-                    Titre
+                    Title
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="input-class focus-visible:ring-offset-orange-1"
-                      placeholder="Podcast JSM Pro"
+                      placeholder="JSM Pro Podcast"
                       {...field}
                     />
                   </FormControl>
@@ -143,7 +146,7 @@ const CreatePodcast = () => {
 
             <div className="flex flex-col gap-2.5">
               <Label className="text-16 font-bold text-white-1">
-                Sélectionner une voix IA
+                Select AI Voice
               </Label>
 
               <Select onValueChange={(value) => setVoiceType(value)}>
@@ -153,7 +156,7 @@ const CreatePodcast = () => {
                   )}
                 >
                   <SelectValue
-                    placeholder="Sélectionner une voix IA"
+                    placeholder="Select AI Voice"
                     className="placeholder:text-gray-1 "
                   />
                 </SelectTrigger>
@@ -164,7 +167,7 @@ const CreatePodcast = () => {
                       value={category}
                       className="capitalize focus:bg-orange-1"
                     >
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                      {category}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -189,7 +192,7 @@ const CreatePodcast = () => {
                   <FormControl>
                     <Textarea
                       className="input-class focus-visible:ring-offset-orange-1"
-                      placeholder="Écrire une courte description du podcast"
+                      placeholder="Write a short podcast description"
                       {...field}
                     />
                   </FormControl>
@@ -210,9 +213,9 @@ const CreatePodcast = () => {
             />
 
             <GenerateThumbnail
-              setImage={setImageUrl}
+              setImage={setImgUrl}
               setImageStorageId={setImageStorageId}
-              image={imageUrl}
+              image={imgUrl}
               imagePrompt={imagePrompt}
               setImagePrompt={setImagePrompt}
             />
@@ -224,11 +227,11 @@ const CreatePodcast = () => {
               >
                 {isSubmitting ? (
                   <>
-                    Envoi
+                    Submitting
                     <Loader size={20} className="animate-spin ml-2" />
                   </>
                 ) : (
-                  "Soumettre & Publier le Podcast"
+                  "Submit & Publish Podcast"
                 )}
               </Button>
             </div>
