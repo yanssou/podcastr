@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 const PodcastCard = ({
-  imgURL,
+  imgUrl,
   title,
   description,
   podcastId,
 }: {
-  imgURL: string;
+  imgUrl: string;
   title: string;
   description: string;
   podcastId: number;
@@ -16,7 +16,7 @@ const PodcastCard = ({
     <div className="cursor-pointer">
       <figure className="flex flex-col gap-2">
         <Image
-          src={imgURL}
+          src={imgUrl}
           alt={title}
           width={174}
           height={174}
