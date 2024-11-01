@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -64,7 +63,6 @@ const CreatePodcast = () => {
   const createPodcast = useMutation(api.podcasts.createPodcast);
 
   const { toast } = useToast();
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,12 +77,12 @@ const CreatePodcast = () => {
       if (!audioUrl || !imgUrl || !voiceType) {
         toast({
           title:
-            "Veuillez remplir tous les champs nécessaires avant de publier votre podcast.",
+            "Veuillez remplir tous les champs nécessaires avant de publier votre podcasts.",
           variant: "destructive",
         });
         setIsSubmitting(false);
         throw new Error(
-          "Veuillez remplir tous les champs nécessaires avant de publier votre podcast.",
+          "Veuillez remplir tous les champs nécessaires avant de publier votre podcasts.",
         );
       }
 
@@ -106,7 +104,7 @@ const CreatePodcast = () => {
       router.push("/");
     } catch (error) {
       toast({
-        title: "Erreur lors de l'upload du podcast",
+        title: "Erreur lors de l'upload du podcasts",
         variant: "destructive",
       });
       setIsSubmitting(false);

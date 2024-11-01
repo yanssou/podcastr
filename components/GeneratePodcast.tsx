@@ -30,7 +30,7 @@ const useGeneratePodcast = ({
     if (!voicePrompt) {
       toast({
         title:
-          "Veuillez remplir tous les champs nécessaires avant générer un podcast.",
+          "Veuillez remplir tous les champs nécessaires avant générer un podcasts.",
       });
       return setIsGenerating(false);
     }
@@ -57,10 +57,10 @@ const useGeneratePodcast = ({
       });
     } catch (error) {
       toast({
-        title: "Erreur lors de la génération du podcast.",
+        title: "Erreur lors de la génération du podcasts.",
         variant: "destructive",
       });
-      console.log("Erreur lors de la génération du podcast : ", error);
+      console.log("Erreur lors de la génération du podcasts : ", error);
       setIsGenerating(false);
     }
   };
@@ -101,7 +101,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
               <Loader size={20} className="animate-spin mr-1" />{" "}
             </>
           ) : (
-            "Générer le podcast"
+            "Générer le podcasts"
           )}
         </Button>
       </div>
