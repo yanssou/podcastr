@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import ConvexClerkProvider from "@/app/providers/ConvexClerkProvider";
+import ConvexClerkProvider from "@/providers/ConvexClerkProvider";
+import AudioProvider from "@/providers/AudioProvider";
+import { Manrope } from "next/font/google";
+import React from "react";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Podcastr",
@@ -28,12 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ConvexClerkProvider>{children}</ConvexClerkProvider>
-      </body>
-    </html>
+    <ConvexClerkProvider>
+      <html lang="en">
+        <AudioProvider>
+          <body className={`${manrope.className}`}>{children}</body>
+        </AudioProvider>
+      </html>
+    </ConvexClerkProvider>
   );
 }
