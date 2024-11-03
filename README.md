@@ -20,13 +20,13 @@
 1. 🤖 [Introduction](#introduction)
 2. ⚙️ [Stack technique](#tech-stack)
 3. 🔋 [Fonctionnalités](#features)
-4. 💻 [Screens] (#screens)
+4. 💻 [Screens](#screens)
 
 ## <a name="introduction">🤖 Introduction</a>
 
 Une plateforme SaaS d'IA de pointe qui permet aux utilisateurs de créer, découvrir et profiter de podcasts avec des fonctionnalités avancées telles que la conversion de texte en audio avec une IA multi-voix, la génération d'images de couverture pour les podcasts et une lecture fluide.
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
+## <a name="tech-stack">⚙️ Stack technique</a>
 
 - Next.js
 - TypeScript
@@ -36,7 +36,7 @@ Une plateforme SaaS d'IA de pointe qui permet aux utilisateurs de créer, décou
 - ShadCN
 - Tailwind CSS
 
-## <a name="features">🔋 Features</a>
+## <a name="features">🔋 Fonctionnalités</a>
 
 👉 **Authentification Robuste** : Système sécurisé et fiable de connexion et d'inscription des utilisateurs.
 
@@ -62,4 +62,4 @@ et bien plus encore, incluant l'architecture du code et sa réutilisabilité.
 
 ## <a name="screens">💻 Quelques images</a>
 
-#
+![Screen 1](images/screens/screen_1.png)
