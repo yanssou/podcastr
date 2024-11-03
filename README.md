@@ -63,3 +63,8 @@ et bien plus encore, incluant l'architecture du code et sa réutilisabilité.
 ## <a name="screens">💻 Quelques images</a>
 
 ![Screen 1](public/screens/screen_1.png)
+![Screen 2](public/screens/screen_2.png)
+![Screen 3](public/screens/screen_3.png)
+![Screen 4](public/screens/screen_4.png)
+![Screen 5](public/screens/screen_5.png)
+![Screen 6](public/screens/screen_6.png)
