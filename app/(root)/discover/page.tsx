@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter, useSearchParams } from "next/navigation"; // Import necessary hooks
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import EmptyState from "@/components/EmptyState";
@@ -8,14 +9,11 @@ import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastCard from "@/components/PodcastCard";
 import SearchBar from "@/components/SearchBar";
 
-const Discover = ({
-  searchParams: { search },
-}: {
-  searchParams: { search: string };
-}) => {
-  const podcastsData = useQuery(api.podcasts.getPodcastBySearch, {
-    search: search || "",
-  });
+const Discover = () => {
+  const searchParams = useSearchParams(); // Retrieve searchParams
+  const search = searchParams.get("search") || ""; // Extract 'search' parameter
+
+  const podcastsData = useQuery(api.podcasts.getPodcastBySearch, { search });
 
   return (
     <div className="flex flex-col gap-9">
@@ -50,4 +48,5 @@ const Discover = ({
     </div>
   );
 };
+
 export default Discover;

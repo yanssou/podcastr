@@ -99,7 +99,6 @@ const PodcastPlayer = () => {
         hidden: !audio?.audioUrl || audio?.audioUrl === "",
       })}
     >
-      {/* change the color for indicator inside the Progress component in ui folder */}
       <Progress
         value={(currentTime / duration) * 100}
         className="w-full"
@@ -116,7 +115,7 @@ const PodcastPlayer = () => {
         <div className="flex items-center gap-4 max-md:hidden">
           <Link href={`/podcast/${audio?.podcastId}`}>
             <Image
-              src={audio?.imageUrl! || "/images/player1.png"}
+              src={audio?.imageUrl || "/images/player1.png"} // Fallback to default image if audio?.imageUrl is undefined
               width={64}
               height={64}
               alt="player1"

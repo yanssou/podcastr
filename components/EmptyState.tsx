@@ -24,7 +24,8 @@ const EmptyState = ({
         </h1>
         {search && (
           <p className="text-16 text-center font-medium text-white-2">
-            Essayez d'ajuster votre recherche afin de trouver votre bonheur !
+            Essayez d`&aposajuster votre recherche afin de trouver votre bonheur
+            !
           </p>
         )}
         {buttonLink && (
