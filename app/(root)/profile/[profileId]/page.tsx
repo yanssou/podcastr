@@ -1,40 +1,67 @@
 "use client";
 
-import React from "react";
 import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+
+import EmptyState from "@/components/EmptyState";
 import LoaderSpinner from "@/components/LoaderSpinner";
-import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
+import PodcastCard from "@/components/PodcastCard";
+import ProfileCard from "@/components/ProfileCard";
+import { api } from "@/convex/_generated/api";
 
-const Profile = ({
-  params: { profileId },
+const ProfilePage = ({
+  params,
 }: {
-  params: { profileId: string };
+  params: {
+    profileId: string;
+  };
 }) => {
-  const podcastsByAuthor = useQuery(api.podcasts.getPodcastByAuthorId, {
-    authorId: profileId,
-  });
   const user = useQuery(api.users.getUserById, {
-    clerkId: profileId,
+    clerkId: params.profileId,
+  });
+  const podcastsData = useQuery(api.podcasts.getPodcastByAuthorId, {
+    authorId: params.profileId,
   });
 
-  if (!podcastsByAuthor || !user) return <LoaderSpinner />;
+  if (!user || !podcastsData) return <LoaderSpinner />;
 
   return (
-    <section className="flex flex-col w-full">
-      <h1 className="text-xl text-white-1">{profileId}</h1>
-      <header className="mt-9 flex items-center justify-between">
-        <h1 className="text-20 font-bold text-white-1">Profil du podcastr</h1>
-      </header>
-
-      {/*<PodcastDetailPlayer
-        podcastTitle={user.name}
-        podcastId={podcastsByAuthor.podcasts[0]._id}
-        audioStorageId={podcastsByAuthor.podcasts[0].audioStorageId!}
-        authorImageUrl={user.imageUrl}
-        authorId={user.clerkId}
-      />*/}
+    <section className="mt-9 flex flex-col">
+      <h1 className="text-20 font-bold text-white-1 max-md:text-center">
+        Podcaster Profile
+      </h1>
+      <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
+        <ProfileCard
+          podcastsData={podcastsData!}
+          imageUrl={user?.imageUrl!}
+          userFirstName={user?.name!}
+        />
+      </div>
+      <section className="mt-9 flex flex-col gap-5">
+        <h1 className="text-20 font-bold text-white-1">All Podcasts</h1>
+        {podcastsData && podcastsData.podcasts.length > 0 ? (
+          <div className="podcast_grid">
+            {podcastsData?.podcasts
+              ?.slice(0, 4)
+              .map((podcast) => (
+                <PodcastCard
+                  key={podcast._id}
+                  imgUrl={podcast.imgUrl!}
+                  title={podcast.podcastTitle!}
+                  description={podcast.podcastDescription}
+                  podcastId={podcast._id}
+                />
+              ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="You have not created any podcasts yet"
+            buttonLink="/create-podcast"
+            buttonText="Create Podcast"
+          />
+        )}
+      </section>
     </section>
   );
 };
-export default Profile;
+
+export default ProfilePage;

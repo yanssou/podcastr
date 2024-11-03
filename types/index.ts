@@ -28,18 +28,18 @@ export interface TopPodcastersProps {
 export interface PodcastProps {
   _id: Id<"podcasts">;
   _creationTime: number;
-  audioStorageId: Id<"_storage"> | null;
+  audioStorageId?: Id<"_storage"> | undefined;
   user: Id<"users">;
   podcastTitle: string;
   podcastDescription: string;
-  audioUrl: string | null;
-  imageUrl: string | null;
-  imageStorageId: Id<"_storage"> | null;
+  audioUrl?: string | undefined;
+  imgUrl?: string | undefined;
+  imgStorageId?: Id<"_storage"> | undefined;
   author: string;
   authorId: string;
   authorImageUrl: string;
   voicePrompt: string;
-  imagePrompt: string | null;
+  imagePrompt: string | undefined;
   voiceType: string;
   audioDuration: number;
   views: number;
@@ -125,7 +125,7 @@ export interface CarouselProps {
 }
 
 export interface ProfileCardProps {
-  podcastData: ProfilePodcastProps;
+  podcastsData: ProfilePodcastProps;
   imageUrl: string;
   userFirstName: string;
 }
