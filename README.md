@@ -62,4 +62,4 @@ et bien plus encore, incluant l'architecture du code et sa réutilisabilité.
 
 ## <a name="screens">💻 Quelques images</a>
 
-![Screen 1](public/images/screens/screen_1.png)
+![Screen 1](public/screens/screen_1.png)
